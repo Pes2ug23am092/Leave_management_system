@@ -1,0 +1,40 @@
+/* src/components/Card.css */
+:root {
+  --card-bg: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.05);
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --card-hover-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --card-radius: 16px;
+  --card-header-bg: rgba(0, 0, 0, 0.02);
+}
+
+.card {
+  background-color: var(--card-bg);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--card-border);
+  padding: 0; /* Remove default padding */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  overflow: hidden; /* Ensures content respects border radius */
+}
+
+.card:hover {
+  box-shadow: var(--card-hover-shadow);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background-color: var(--card-header-bg);
+  border-bottom: 1px solid var(--card-border);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.card-content {
+  padding: 1.5rem;
+}
