@@ -1,0 +1,252 @@
+/* src/pages/ManagerRequests.css */
+.manager-requests-wrapper {
+  flex-grow: 1;
+  /* Remove local padding - App.css handles TopNav offset */
+}
+
+.request-card {
+  margin-top: var(--spacing-lg);
+}
+
+/* --- Controls Section --- */
+.controls-bar {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  align-items: center;
+  flex-wrap: wrap; /* Ensure responsiveness */
+}
+
+.search-input-manager {
+  flex-grow: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-body);
+  max-width: 400px; /* Limit search width */
+}
+
+.filter-select {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  background-color: var(--color-card-background);
+  color: var(--color-text);
+  cursor: pointer;
+  appearance: none; /* Remove default arrow */
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%20viewBox%3D%220%200%20292.4%20292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.9a17.8%2017.8%200%200%200-25.2%200l-96.1%2096.1L69.6%2069.9a17.8%2017.8%200%200%200-25.2%200a17.8%2017.8%200%200%200%200%2025.2l108.7%20108.7c7%207%2017.8%207%2025.2%200l108.7-108.7a17.8%2017.8%200%200%200%200-25.2z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 10px top 50%;
+  background-size: 10px auto;
+}
+
+/* --- Table Styles (Inheriting from Dashboard.css, but customized actions) --- */
+
+.manager-table-wrapper {
+  overflow-x: auto;
+}
+
+.manager-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-body);
+  color: var(--color-text);
+}
+
+.manager-table th,
+.manager-table td {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.manager-table th {
+  background-color: var(--color-background);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-light-text);
+  white-space: nowrap;
+}
+
+.manager-table tr:hover {
+  background-color: #f7f9fb; /* Slight hover effect */
+}
+
+/* Specific styling for the action buttons in the table */
+.action-buttons {
+  display: flex;
+  gap: var(--spacing-sm);
+  white-space: nowrap;
+}
+
+.action-btn {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.action-btn-approve {
+  background-color: var(--color-approved);
+  color: white;
+}
+
+.action-btn-approve:hover {
+  background-color: #388E3C; /* Darker green */
+}
+
+.action-btn-reject {
+  background-color: var(--color-rejected);
+  color: white;
+}
+
+.action-btn-reject:hover {
+  background-color: #D32F2F; /* Darker red */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .controls-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .search-input-manager {
+    max-width: 100%;
+  }
+}
+/* Add to ManagerRequests.css or App.css (if you want modal styles globally) */
+
+/* --- Modal Styles for Leave Details and Rejection Form (Wider) --- */
+.review-modal {
+    /* Styles for the modal content container */
+    background-color: var(--color-card-background, white); 
+    border-radius: var(--border-radius, 8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    /* UPDATED: Wider component */
+    max-width: 650px; 
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    position: relative;
+}
+
+.rejection-form-modal {
+    /* UPDATED: Wider rejection form */
+    max-width: 500px; 
+    padding: var(--spacing-md);
+}
+
+.modal-form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.modal-form-header h2 {
+    font-size: var(--font-size-h3);
+    color: var(--color-primary);
+}
+
+.modal-close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--color-light-text);
+    padding: var(--spacing-xs);
+}
+
+/* Specifics for the detail content inside LeaveDetailsModal */
+.request-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.user-avatar-icon {
+    font-size: 3rem;
+    color: var(--color-secondary);
+}
+
+.user-info h3 {
+    margin: 0;
+    font-weight: var(--font-weight-bold);
+}
+
+.detail-section {
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xs) 0;
+}
+
+.detail-icon {
+    color: var(--color-primary);
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.detail-label {
+    font-weight: var(--font-weight-medium);
+    width: 80px; /* Align labels */
+}
+
+.reason-box {
+    padding: var(--spacing-md);
+    background-color: var(--color-background);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-lg);
+}
+
+.reason-box h4 {
+    margin-top: 0;
+    color: var(--color-light-text);
+    font-weight: var(--font-weight-semibold);
+}
+
+.modal-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-md);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--color-border);
+}
+
+/* Rejection Form Specifics */
+.rejection-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.form-textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    resize: vertical;
+}
+
+.char-count {
+    text-align: right;
+    font-size: var(--font-size-small);
+    color: var(--color-light-text);
+}

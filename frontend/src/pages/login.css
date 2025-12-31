@@ -1,0 +1,142 @@
+/* -------------------------
+   LOGIN PAGE FULL STYLING
+-------------------------- */
+
+.login-container {
+  display: flex;
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+/* -------------------------
+   LEFT PANEL (Centered Text)
+-------------------------- */
+.login-left {
+  width: 50%;
+  background: #f3f0ff;
+  border-radius: 0 30px 30px 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.login-left h1 {
+  color: #2c229e;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.login-left p {
+  color: #555;
+  font-size: 15px;
+  max-width: 350px;
+  line-height: 1.5;
+}
+
+/* Placeholder Box (since no illustration) */
+.illustration-placeholder {
+  width: 100%;
+  max-width: 350px;
+  height: 280px;
+  margin-top: 25px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 15px;
+  border: 2px dashed #b7b7e7;
+}
+
+/* -------------------------
+   RIGHT PANEL (Form Section)
+-------------------------- */
+.login-right {
+  width: 50%;
+  padding: 0 120px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-right h2 {
+  text-align: center;
+  color: #2c229e;
+  margin-bottom: 30px;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+/* -------------------------
+   FORM
+-------------------------- */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #2c229e;
+}
+
+input {
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #7a5cff;
+  box-shadow: 0 0 5px rgba(122, 92, 255, 0.3);
+}
+
+/* -------------------------
+   LOGIN BUTTON
+-------------------------- */
+button {
+  background: #ff2f74;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s ease-in-out;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* -------------------------
+   RESPONSIVE DESIGN
+-------------------------- */
+@media (max-width: 900px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .login-left {
+    width: 100%;
+    border-radius: 0;
+    padding-top: 40px;
+  }
+
+  .login-right {
+    width: 100%;
+    padding: 0 30px;
+  }
+
+  .illustration-placeholder {
+    display: none;
+  }
+}

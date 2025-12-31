@@ -1,0 +1,257 @@
+/* src/pages/Calendar.css */
+.calendar-page-wrapper {
+  padding: var(--spacing-lg);
+  padding-top: calc(70px + var(--spacing-lg)); /* Account for TopNav height plus spacing */
+  display: grid;
+  grid-template-columns: 300px 1fr; 
+  gap: var(--spacing-lg);
+  flex-grow: 1;
+  background-color: #f8fafc;
+  min-height: 100vh;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+@media (max-width: 1200px) {
+  .calendar-page-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+.calendar-left-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+/* Calendar Leave Balances Section */
+.no-activities {
+  text-align: center;
+  color: var(--color-light-text);
+  font-style: italic;
+  padding: var(--spacing-lg);
+  font-size: var(--font-size-small);
+}
+
+.balance-legend {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-size-small);
+  color: var(--color-text);
+}
+
+.balance-legend li {
+  display: flex;
+  align-items: flex-start; 
+  margin-bottom: var(--spacing-md);
+  line-height: 1.3;
+}
+
+.balance-legend .legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: var(--spacing-sm);
+  flex-shrink: 0; 
+  margin-top: 3px; 
+  border: 1px solid var(--color-border);
+}
+
+/* Specific colors for legend and events */
+.legend-bereavement, .leave-event-bereavement { background-color: #6C757D; } /* Grey */
+.legend-casual, .leave-event-casual { background-color: #2196F3; } /* Blue */
+.legend-paid-time-off, .leave-event-paid-time-off { background-color: #FFC107; } /* Orange */
+.legend-sick, .leave-event-sick { background-color: #9C27B0; } /* Purple */
+.legend-volunteer, .leave-event-volunteer { background-color: #8BC34A; } /* Green */
+
+/* Inherit styles from Dashboard.css for .search-input, .leave-activity-item, etc. */
+
+
+.calendar-right-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+  background: white;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.calendar-nav-controls {
+  padding: 0 var(--spacing-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: var(--color-light-text);
+  transition: all 0.2s ease;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.calendar-nav-controls:hover {
+    color: var(--color-text);
+}
+
+.calendar-nav-controls .arrow-icon {
+    font-size: 1.5rem;
+}
+
+.current-month-year {
+  margin: 0;
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-medium);
+  flex-grow: 1; 
+  text-align: center;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  background-color: #f5f5f5;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.calendar-day-name {
+  background-color: var(--color-primary);
+  color: white;
+  padding: var(--spacing-md);
+  text-align: center;
+  font-weight: var(--font-weight-medium);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.calendar-day {
+  background-color: white;
+  min-height: 120px; 
+  padding: var(--spacing-sm);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.calendar-day:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 1;
+}
+
+.calendar-day.other-month {
+  color: var(--color-light-text);
+  background-color: #fcfcfc; 
+}
+
+.calendar-day .day-number {
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-xs);
+  text-align: right;
+  font-size: 1.1rem;
+  position: relative;
+}
+
+.calendar-day.today .day-number {
+  color: white;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
+}
+
+.calendar-day.other-month .day-number {
+  opacity: 0.6;
+}
+
+.day-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.holiday-event {
+  font-size: 0.75rem;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background-color: #e8f5fe;
+  color: #1976d2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: var(--font-weight-medium);
+  border-left: 3px solid #1976d2;
+  margin-bottom: 2px;
+  transition: all 0.2s ease;
+}
+
+.holiday-event:hover {
+  background-color: #bbdefb;
+  transform: translateX(2px);
+}
+
+/* Leave Event Styles */
+.leave-event {
+  font-size: 0.7rem;
+  padding: 4px 6px;
+  border-radius: 4px;
+  background-color: #e8f5e8;
+  color: #2e7d32;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: var(--font-weight-medium);
+  border-left: 3px solid #4caf50;
+  margin-bottom: 2px;
+  transition: all 0.2s ease;
+}
+
+.leave-event:hover {
+  background-color: #c8e6c9;
+  transform: translateX(2px);
+}
+
+/* Calendar day with approved leave */
+.calendar-day.has-leave {
+  background-color: #f1f8e9;
+  border-color: #8bc34a;
+}
+
+.calendar-day.has-leave.today {
+  background-color: #e8f5e9;
+  border-color: #4caf50;
+}
+
+/* Loading and Error States */
+.calendar-loading,
+.calendar-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 70px);
+  font-size: 1.125rem;
+  color: var(--color-text-primary);
+}
+
+.calendar-error {
+  color: #d32f2f;
+}

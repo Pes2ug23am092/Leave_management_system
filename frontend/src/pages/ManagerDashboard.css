@@ -1,0 +1,643 @@
+/* src/pages/ManagerDashboard.css */
+
+/* --- Pending Approvals Card --- */
+
+.pending-approvals-card {
+    /* Make this card stand out as an action item */
+    background-color: var(--color-primary);
+    color: white;
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.pending-approvals-card .card-header {
+    color: white;
+    justify-content: center; /* Center the header text */
+}
+
+.pending-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl) 0;
+}
+
+.pending-icon {
+    font-size: 3rem;
+    color: var(--color-success); /* Use success color to signal an action is ready */
+    margin-bottom: var(--spacing-md);
+    background-color: white;
+    border-radius: 50%;
+    padding: var(--spacing-sm);
+}
+
+.pending-count {
+    font-size: 3.5rem;
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+    margin-bottom: var(--spacing-sm);
+}
+
+.pending-text {
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-medium);
+}
+
+/* --- Team Time Off Card --- */
+
+.team-off-card .card-header,
+.next-holiday-card .card-header {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.holiday-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-lg);
+    padding: 0 var(--spacing-sm);
+}
+
+.off-period {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+    font-size: var(--font-size-body);
+}
+
+.icon-button {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    color: var(--color-light-text);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.icon-button:hover {
+    background-color: var(--color-background);
+}
+
+.holiday-info {
+    text-align: center;
+    flex: 1;
+}
+
+.holiday-name {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-xs);
+}
+
+.holiday-date {
+    font-size: var(--font-size-small);
+    color: var(--color-light-text);
+}
+
+.holiday-indicator {
+    text-align: center;
+    font-size: var(--font-size-small);
+    color: var(--color-light-text);
+    margin-top: var(--spacing-sm);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--color-border);
+}
+
+.off-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.off-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px dashed var(--color-border);
+}
+
+.off-item:last-child {
+    border-bottom: none;
+}
+
+.off-date {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-primary);
+    width: 30%;
+    flex-shrink: 0;
+}
+
+.avatar-group {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    background-color: var(--color-tertiary);
+    color: var(--color-primary);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-bold);
+    text-align: center;
+    border: 2px solid white;
+}
+
+.manager-info {
+    font-size: var(--font-size-small);
+    color: var(--color-light-text);
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--color-border);
+}
+
+/* --- Team Balances Overview --- */
+.team-balances-overview p {
+    color: var(--color-light-text);
+}
+
+/* --- Leave Balances Card Override --- */
+.manager-dashboard-wrapper .leave-summary-card {
+    background: white !important;
+    background-image: none !important;
+    --color-card-background: white !important;
+    --card-bg: white !important;
+}
+
+.manager-dashboard-wrapper .leave-summary-card .card-header {
+    background-color: #f8f9fa !important;
+    background-image: none !important;
+    color: #333 !important;
+}
+
+.manager-dashboard-wrapper .leave-summary-card .card-content {
+    background-color: white !important;
+    background-image: none !important;
+}
+
+.leave-summary-grid {
+    background-color: white !important;
+    background-image: none !important;
+}
+
+.leave-summary-grid .leave-type-item {
+    background-color: white !important;
+    background-image: none !important;
+}
+
+.leave-summary-grid .leave-type-item * {
+    background-color: transparent !important;
+    background-image: none !important;
+}
+
+/* Override any global card background variables */
+.manager-dashboard-wrapper {
+    --color-card-background: white !important;
+    --card-bg: white !important;
+}
+
+/* Ensure summary cards have white background */
+.manager-dashboard-wrapper .summary-card {
+    background: white !important;
+    background-image: none !important;
+}
+
+/* --- Team Leave History --- */
+.team-leave-history {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.history-header {
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.history-subtitle {
+    color: var(--color-light-text);
+    font-size: var(--font-size-small);
+    margin: 0;
+    font-style: italic;
+    flex-grow: 1;
+}
+
+.btn-small {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-small);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.spinning {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.leave-history-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.history-item {
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: var(--color-background);
+    transition: all 0.2s ease;
+}
+
+.history-item:hover {
+    background-color: var(--color-card-background);
+    border-color: var(--color-primary);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.history-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-xs);
+}
+
+.employee-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.employee-name {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    font-size: var(--font-size-body);
+}
+
+.department-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background-color: var(--color-tertiary);
+    color: var(--color-primary);
+    border-radius: 12px;
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-medium);
+    width: fit-content;
+}
+
+.leave-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--spacing-xs);
+}
+
+.leave-type {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-small);
+}
+
+.leave-duration {
+    color: var(--color-light-text);
+    font-size: var(--font-size-small);
+    background-color: #f5f5f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.leave-status-badge {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.leave-status-badge.upcoming {
+    background-color: #f0f0f0;
+    color: #666;
+    border: 1px solid #ddd;
+}
+
+.leave-status-badge.ongoing {
+    background-color: #fff3e0;
+    color: #f57c00;
+    border: 1px solid #ffcc02;
+}
+
+.leave-status-badge.completed {
+    background-color: #e8f5e8;
+    color: #388e3c;
+    border: 1px solid #c8e6c9;
+}
+
+/* History item variants */
+.history-item.upcoming {
+    border-left: 4px solid #1976d2;
+}
+
+.history-item.ongoing {
+    border-left: 4px solid #f57c00;
+    background-color: #fffef7;
+}
+
+.history-item.completed {
+    border-left: 4px solid #388e3c;
+    opacity: 0.9;
+}
+
+.history-dates {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xs);
+    font-size: var(--font-size-small);
+}
+
+.date-range {
+    color: var(--color-text);
+    font-weight: var(--font-weight-medium);
+}
+
+.approved-date {
+    color: var(--color-success);
+    font-size: 0.75rem;
+}
+
+.leave-reason {
+    margin-top: var(--spacing-xs);
+    padding-top: var(--spacing-xs);
+    border-top: 1px dashed var(--color-border);
+    color: var(--color-light-text);
+    font-size: var(--font-size-small);
+    line-height: 1.3;
+}
+
+.no-history {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: var(--color-light-text);
+    background-color: var(--color-background);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-lg);
+}
+
+.no-history p {
+    margin: 0;
+    font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .off-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .off-date {
+        margin-bottom: var(--spacing-xs);
+        width: 100%;
+    }
+    .avatar-group {
+        justify-content: flex-start;
+    }
+}
+
+/* Add to ManagerRequests.css or App.css (if you want modal styles globally) */
+
+/* --- Modal Styles for Leave Details and Rejection Form --- */
+.review-modal {
+    /* Styles for the modal content container */
+    background-color: var(--color-card-background, white); /* Use white background */
+    border-radius: var(--border-radius, 8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    position: relative;
+}
+
+.rejection-form-modal {
+    /* Smaller size for the rejection form */
+    max-width: 400px;
+    padding: var(--spacing-md);
+}
+
+.modal-form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.modal-form-header h2 {
+    font-size: var(--font-size-h3);
+    color: var(--color-primary);
+}
+
+.modal-close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--color-light-text);
+    padding: var(--spacing-xs);
+}
+
+/* Specifics for the detail content inside LeaveDetailsModal */
+.request-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.user-avatar-icon {
+    font-size: 3rem;
+    color: var(--color-secondary);
+}
+
+.user-info h3 {
+    margin: 0;
+    font-weight: var(--font-weight-bold);
+}
+
+.detail-section {
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xs) 0;
+}
+
+.detail-icon {
+    color: var(--color-primary);
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.detail-label {
+    font-weight: var(--font-weight-medium);
+    width: 80px; /* Align labels */
+}
+
+.reason-box {
+    padding: var(--spacing-md);
+    background-color: var(--color-background);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-lg);
+}
+
+.reason-box h4 {
+    margin-top: 0;
+    color: var(--color-light-text);
+    font-weight: var(--font-weight-semibold);
+}
+
+.modal-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-md);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--color-border);
+}
+
+/* Rejection Form Specifics */
+.rejection-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.form-textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    resize: vertical;
+}
+
+.char-count {
+    text-align: right;
+    font-size: var(--font-size-small);
+    color: var(--color-light-text);
+}
+
+/* --- Cancellation Requests Card --- */
+
+.cancellation-requests-card {
+    background-color: #fff8dc; /* Light yellow background to highlight importance */
+    border-left: 4px solid #ff9800; /* Orange left border */
+}
+
+.cancellation-requests-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.cancellation-request-item {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cancellation-request-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+}
+
+.cancellation-reason {
+    margin: var(--spacing-sm) 0;
+    padding: var(--spacing-xs);
+    background-color: #fffbf0;
+    border-left: 3px solid #ff9800;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    font-size: var(--font-size-small);
+}
+
+.cancellation-actions {
+    display: flex;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-sm);
+    justify-content: flex-end;
+}
+
+.cancellation-actions .btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-small);
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+}
+
+.cancellation-actions .btn-success {
+    background-color: #4caf50;
+    color: white;
+}
+
+.cancellation-actions .btn-success:hover {
+    background-color: #45a049;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+}
+
+.cancellation-actions .btn-danger {
+    background-color: #f44336;
+    color: white;
+}
+
+.cancellation-actions .btn-danger:hover {
+    background-color: #da190b;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(244, 67, 54, 0.3);
+}
+
+.no-cancellation-requests {
+    text-align: center;
+    padding: var(--spacing-lg);
+    color: var(--color-light-text);
+    font-style: italic;
+}
+

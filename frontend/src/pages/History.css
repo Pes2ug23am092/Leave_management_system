@@ -1,0 +1,105 @@
+/* src/pages/History.css */
+.history-wrapper {
+  padding: var(--spacing-lg);
+  flex-grow: 1;
+}
+
+/* Table Controls: Search and Filter buttons */
+.table-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    gap: var(--spacing-lg);
+}
+
+.search-input-container {
+    flex-grow: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Reuse search-input style from Dashboard.css but adjust for icon */
+.history-search-input {
+    width: 100%;
+    padding-left: calc(var(--spacing-lg) + 10px); /* Space for the icon */
+    padding-right: var(--spacing-md);
+}
+
+.search-icon {
+    position: absolute;
+    left: var(--spacing-md);
+    color: var(--color-light-text);
+    font-size: var(--font-size-body);
+}
+
+.table-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+/* Table specific adjustments */
+.leave-table {
+    width: 100%;
+}
+
+.reason-cell {
+    /* Set a max width for the reason cell to prevent it from stretching the table too wide */
+    max-width: 250px; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds the ... for long text */
+}
+
+/* --- Pagination Styles --- */
+.pagination-container {
+    display: flex;
+    justify-content: flex-end; /* Align to the right as in the image */
+    align-items: center;
+    padding: var(--spacing-md) 0;
+    border-top: 1px solid var(--color-border); /* Separator line above pagination */
+    margin-top: var(--spacing-md);
+    font-size: var(--font-size-small);
+}
+
+.pagination-button {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    color: var(--color-text);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    margin: 0 var(--spacing-sm);
+}
+
+.pagination-button:hover:not(:disabled) {
+    background-color: var(--color-tertiary); /* Light blue background on hover */
+}
+
+.pagination-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.page-info {
+    color: var(--color-light-text);
+}
+
+.no-results-message {
+    text-align: center;
+    padding: var(--spacing-lg);
+    color: var(--color-light-text);
+    font-style: italic;
+}
+
+/*
+NOTE: The .leave-table, .status-badge, .status-approved, 
+.status-rejected, .status-pending classes are *REUSED* from Dashboard.css, 
+which is why the table looks correct without defining them here.
+*/
