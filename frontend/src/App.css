@@ -1,0 +1,110 @@
+/* ===============================
+   GLOBAL APP LAYOUT + OFFSETS
+=============================== */
+
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  background-color: #f9fafb;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* -------------------------------------
+   CRITICAL FIX: Layout Container Styling
+   ------------------------------------- */
+
+/* Apply the correct offset padding to ALL main content areas */
+.main-content,
+.dashboard-wrapper,
+.profile-page,
+.leave-balances-page,
+.manager-dashboard-wrapper,
+.manager-requests-wrapper,
+.manager-reports-wrapper,
+.admin-dashboard-wrapper,
+.admin-page-content,
+[class*="-page-wrapper"]:not(.calendar-page-wrapper) {
+  /* Fixed header offset - excluding calendar page which has its own padding */
+  padding-top: 70px; 
+  padding-left: 1rem;
+  padding-right: 1.2rem;
+  padding-bottom: 1.2rem;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  margin: 0;
+  transition: margin-left 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+/* -------------------------------------
+   SIDEBAR OFFSET (For Content only)
+   ------------------------------------- */
+
+/* Default desktop state (sidebar open) */
+.main-content,
+.dashboard-wrapper,
+.profile-page,
+.manager-dashboard-wrapper,
+.manager-requests-wrapper,
+.manager-reports-wrapper,
+.admin-dashboard-wrapper,
+.admin-page-content {
+    /* Push content over to the right of the 240px fixed SideNav */
+    margin-left: 240px; 
+}
+
+/* When the parent app-container has sidebar-closed class (This class is typically on the main route layout div) */
+.employee-layout.sidebar-closed .main-content,
+.manager-layout.sidebar-closed .main-content,
+.admin-layout.sidebar-closed .main-content {
+    /* Set margin to zero when sidebar is closed (or just icon size if collapsed) */
+    margin-left: 0;
+}
+
+
+/* Prevent content from hiding behind sidebar */
+.app-container {
+  display: flex;
+  position: relative;
+}
+
+/* ===============================
+   GENERAL BUTTONS
+=============================== */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* ===============================
+   RESPONSIVE
+=============================== */
+@media (max-width: 768px) {
+  .main-content,
+  .dashboard-wrapper,
+  .profile-page,
+  .manager-dashboard-wrapper,
+  .manager-requests-wrapper,
+  .manager-reports-wrapper,
+  .admin-dashboard-wrapper,
+  .admin-page-content {
+    /* Mobile: TopNav height is 70px, but SideNavigation.css uses 60px for mobile offset */
+    padding-top: 60px;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+    padding-bottom: 0.8rem;
+    /* Ensure no margin-left on mobile */
+    margin-left: 0; 
+  }
+}
