@@ -1,0 +1,6 @@
+{
+  "testEnvironment": "node",
+  "testMatch": ["<rootDir>/tests/system/**/*.test.js"],
+  "verbose": true,
+  "collectCoverage": false
+}

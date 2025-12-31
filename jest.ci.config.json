@@ -1,0 +1,35 @@
+{
+  "testEnvironment": "node",
+  "testMatch": ["<rootDir>/tests/**/*.test.js"],
+  "verbose": true,
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "backend/src/routes/authRoutes.js",
+    "backend/src/middleware/authMiddleware.js",
+    "backend/src/controllers/holidayController.js",
+    "backend/src/controllers/teamController.js"
+  ],
+  "coveragePathIgnorePatterns": [
+    "/node_modules/",
+    "backend/src/services/",
+    "backend/db/",
+    "backend/src/controllers/leaveController.js",
+    "backend/src/controllers/leaveCancellationController.js",
+    "backend/src/controllers/employeeController.js",
+    "backend/src/controllers/adminController.js",
+    "backend/src/utils/emailService.js"
+  ],
+  "testPathIgnorePatterns": [
+    "<rootDir>/tests/unit/authController.login.test.js",
+    "<rootDir>/tests/integration/",
+    "<rootDir>/tests/system/"
+  ],
+  "coverageThreshold": {
+    "global": {
+      "branches": 75,
+      "functions": 75,
+      "lines": 75,
+      "statements": 75
+    }
+  }
+}

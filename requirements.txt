@@ -1,0 +1,21 @@
+# requirements.txt
+#
+# Note: This repository is a Node.js + React project (not Python).
+# There are no Python packages required to run the app.
+#
+# Dependencies are managed via npm and listed in:
+#   - backend/package.json
+#   - frontend/package.json
+#
+# If your deployment platform requires a requirements.txt file,
+# you can keep this file as-is (empty of pip-installable packages).
+#
+# Environment Tooling Versions:
+#   Node.js: >= 18
+#   npm: >= 9
+#   MySQL Server: 8.x (or MariaDB equivalent)
+#
+# For Python-based tooling (if introduced later), list packages below,
+# one per line (e.g., black, flake8, pytest, etc.).
+#
+# This file exists for deployment compatibility only — no pip packages required.
