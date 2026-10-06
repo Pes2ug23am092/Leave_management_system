@@ -1,0 +1,33 @@
+const request = require('supertest');
+const jwt = require('jsonwebtoken');
+
+const mockPool = { query: jest.fn() };
+jest.mock('../../backend/db/db', () => ({ pool: mockPool }));
+
+const { buildApp } = require('./helpers');
+
+function authHeader(payload) {
+  const token = jwt.sign(payload, process.env.JWT_SECRET || 'secret');
+  return { Authorization: `Bearer ${token}` };
+}
+
+describe('GET /api/employees/leave/balances (integration)', () => {
+  beforeEach(() => jest.clearAllMocks());
+
+  test('200 returns balances array', async () => {
+    // Mimic aliased columns from the controller's SELECT
+    mockPool.query.mockResolvedValueOnce([[
+      { label: 'Annual', total: 20, current: 10, taken: 10 }
+    ]]);
+
+    const app = buildApp();
+    const res = await request(app)
+      .get('/api/employees/leave/balances')
+      .set(authHeader({ id: 1, role: 'Employee' }))
+      .expect(200);
+
+    expect(Array.isArray(res.body)).toBe(true);
+    expect(res.body[0]).toHaveProperty('label', 'Annual');
+    expect(res.body[0]).toHaveProperty('current');
+  });
+});

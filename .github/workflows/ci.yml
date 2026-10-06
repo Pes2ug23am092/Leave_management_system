@@ -1,0 +1,212 @@
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: ['**']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run unit tests
+        run: npm run test:unit
+      - name: Run integration tests
+        run: npm run test:integration
+      - name: Run system tests
+        run: npm run test:system
+
+  coverage:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run coverage (enforces jest.ci.config.json thresholds)
+        run: npm run test:coverage
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage
+
+  lint:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Run ESLint (backend only)
+        run: npm run lint
+      - name: Save ESLint JSON report
+        # generate an eslint JSON report for inclusion in the artifact
+        run: |
+          npx eslint backend --ext .js -f json -o eslint-report.json || true
+      - name: Upload lint report
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-report
+          path: eslint-report.json
+
+  security:
+    # security requires both coverage and lint to have passed
+    needs: [coverage, lint]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Run npm audit and save JSON
+        run: |
+          # Save the npm audit JSON so it can be packaged; we'll evaluate severity below
+          npm audit --json > npm-audit.json || true
+          node -e "const fs=require('fs');const a=JSON.parse(fs.readFileSync('npm-audit.json','utf8'));const m=a.metadata||{};const v=m.vulnerabilities||{};const high=(v.high||0)+(v.critical||0); if(high>0){console.error('High/critical vulnerabilities found:',high); process.exit(1);} console.log('No high/critical vulnerabilities')"
+
+      - name: Setup Python for repo security checks
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install pip-audit and bandit
+        run: |
+          python -m pip install --upgrade pip
+          pip install pip-audit bandit
+
+      - name: Run pip-audit (if requirements.txt exists) and save
+        run: |
+          if [ -f requirements.txt ]; then
+            pip-audit -r requirements.txt --format=json > pip-audit.json || true
+          else
+            echo "requirements.txt not present, skipping pip-audit" > pip-audit.json
+          fi
+
+      - name: Run bandit on backend (if present) and save
+        run: |
+          if [ -d backend ]; then
+            bandit -r backend -lll -f txt > bandit-report.txt || true
+          else
+            echo "backend directory not present, skipping bandit" > bandit-report.txt
+          fi
+
+      - name: Upload security reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-reports
+          path: |
+            npm-audit.json
+            pip-audit.json
+            bandit-report.txt
+
+  deploy-artifact:
+    # final deployment artifact, runs after successful security stage
+    needs: security
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download lint, coverage and security artifacts
+        uses: actions/download-artifact@v4
+        with:
+          # downloads all artifacts into ./artifacts/<artifact-name>
+          path: artifacts
+
+      - name: List downloaded artifacts
+        run: |
+          echo "Artifacts directory layout"; ls -la artifacts || true
+
+      - name: Determine artifact name (version or date)
+        id: artifact
+        run: |
+          # Try to use version from package.json, fall back to UTC date
+          VER=""
+          if [ -f package.json ]; then
+            VER=$(node -e "try{console.log(require('./package.json').version||'')}catch(e){console.log('')}")
+          fi
+          if [ -z "$VER" ]; then
+            VER=$(date -u +%Y%m%dT%H%M%SZ)
+          fi
+          DATE=$(date -u +%Y-%m-%d)
+          ART_NAME="project-${VER}-${DATE}.zip"
+          echo "ARTIFACT_NAME=$ART_NAME" >> $GITHUB_ENV
+          echo "Created artifact name: $ART_NAME"
+
+      - name: Create deployment zip
+        run: |
+          # Exclude common heavy or internal directories from the archive
+          ZIPNAME="$ARTIFACT_NAME"
+          echo "Creating $ZIPNAME"
+          # Use zip -r and exclude .git and node_modules and coverage directories to keep artifact small
+          # Include coverage and any reports that were downloaded under ./artifacts
+          # Exclude only .git, node_modules and .github
+          zip -r "$ZIPNAME" . -x ".git/*" "**/node_modules/*" ".github/*"
+          # Add downloaded reports explicitly (if present) so they're guaranteed to be inside the zip root
+          if [ -d artifacts ]; then
+            echo "Adding artifacts to ZIP"
+            cd artifacts
+            # flatten artifact contents into a reports/ folder inside the zip
+            mkdir -p reports || true
+            # move any known files into reports/ to ensure inclusion
+            shopt -s globstar || true
+            mv -f npm-audit.json pip-audit.json bandit-report.txt eslint-report.json reports/ 2>/dev/null || true
+            # move coverage artifact if present
+            if [ -d coverage ]; then
+              mv -f coverage reports/coverage 2>/dev/null || true
+            fi
+            cd ..
+            zip -r "$ZIPNAME" artifacts/reports -x "**/node_modules/*" || true
+          fi
+
+      - name: Upload deployment artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ${{ env.ARTIFACT_NAME }}
